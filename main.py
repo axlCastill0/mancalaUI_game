@@ -1,4 +1,4 @@
-import pygame, Puit
+import pygame
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -11,6 +11,8 @@ pygame.display.set_caption("Mancala - Axl Castillo / Thomas Journault")
 
 board_sprite = pygame.image.load("img/mancala_board.png").convert_alpha()
 board_rect = board_sprite.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+
+pits = pygame.sprite.Group()
 
 run = True
 while run:
