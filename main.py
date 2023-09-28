@@ -78,6 +78,11 @@ while run:
 
     pits.draw(screen)
 
+    if pit0.action() == True :
+        print("hello")
+    if pit1.action() == True :
+        print("bye")
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

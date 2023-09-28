@@ -10,14 +10,15 @@ class Pit(pygame.sprite.Sprite) :
         self.clicked = False
 
     def draw(self, screen) :
+        screen.blit(self.img, self.rect)
+
+    def action(self) -> bool:
         pos = pygame.mouse.get_pos()
 
         if self.rect.collidepoint(pos):
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
-                print(self.seeds)
+                return True
 
         if pygame.mouse.get_pressed()[0] == 0 :
             self.clicked = False
-
-        screen.blit(self.img, self.rect)
