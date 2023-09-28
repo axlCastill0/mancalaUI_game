@@ -1,17 +1,28 @@
-import pygame, sys
+import pygame, Puit
 
 pygame.init()
 clock = pygame.time.Clock()
 
-screen = pygame.display.set_mode((1000, 600))
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 600
 
-while True:
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Mancala - Axl Castillo / Thomas Journault")
+
+board_sprite = pygame.image.load("img/mancala_board.png").convert_alpha()
+
+
+run = True
+while run:
+
+    screen.blit(board_sprite, (100, 85))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+            run = False
 
-    pygame.display.flip()
-    screen.fill((255, 0, 0))
+    pygame.display.update()
+    screen.fill((202, 228, 241))
     clock.tick(60)
-    print(clock.tick())
+
+pygame.quit()
