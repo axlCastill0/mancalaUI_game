@@ -155,16 +155,32 @@ mancala = Mancala.Mancala([4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0])
 def updateGameInterface() :
     grid = mancala.grid
     for i in range(7) :
-        if (i == 6) :
-            pits.pits[i].img = blue_point_img_array[grid[i]]
+        if (grid[i] > 6) :
+            if (i == 6) and (grid[i] > 10):
+                pits.pits[i].img = blue_point_img_array[len(blue_point_img_array) - 1]
+            elif (i == 6) :
+                pits.pits[i].img = blue_point_img_array[grid[i]]
+            else :
+                pits.pits[i].img = blue_pit_img_array[len(blue_pit_img_array) - 1]
         else :
-            pits.pits[i].img = blue_pit_img_array[grid[i]]
+            if (i == 6) :
+                pits.pits[i].img = blue_point_img_array[grid[i]]
+            else :
+                pits.pits[i].img = blue_pit_img_array[grid[i]]
 
-    for i in range(7, 13) :
-        if (i == 13) :
-            pits.pits[i].img = red_point_img_array[grid[i]]
+    for i in range(7, 14) :
+        if (grid[i] > 6) :
+            if (i == 13) and (grid[i] > 10):
+                pits.pits[i].img = red_point_img_array[len(red_point_img_array) - 1]
+            elif (i == 13) :
+                pits.pits[i].img = red_point_img_array[grid[i]]
+            else :
+                pits.pits[i].img = red_pit_img_array[len(red_pit_img_array) - 1]
         else :
-            pits.pits[i].img = red_pit_img_array[grid[i]]
+            if (i == 13) :
+                pits.pits[i].img = red_point_img_array[grid[i]]
+            else :
+                pits.pits[i].img = red_pit_img_array[grid[i]]
 
 run = True
 while run:
@@ -175,17 +191,22 @@ while run:
 
     if pit0.action() == True :
         mancala.playerMove(0)
+        mancala.cpuMove()
     if pit1.action() == True :
         mancala.playerMove(1)
+        mancala.cpuMove()
     if pit2.action() == True :
         mancala.playerMove(2)
+        mancala.cpuMove()
     if pit3.action() == True :
         mancala.playerMove(3)
+        mancala.cpuMove()
     if pit4.action() == True :
         mancala.playerMove(4)
+        mancala.cpuMove()
     if pit5.action() == True :
         mancala.playerMove(5)
-        print(mancala.grid)
+        mancala.cpuMove()
 
     updateGameInterface()
 
