@@ -1,4 +1,4 @@
-import pygame, Pit, Mancala_UI
+import pygame, Pit, Mancala_UI, Mancala
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -11,7 +11,7 @@ BLUE_PIT_HEIGHT = 301 + (SCREEN_HEIGHT - 416)/2
 PIT_WIDTH_COORDS = [151 + (SCREEN_WIDTH - 800)/2, 
                     252 + (SCREEN_WIDTH - 800)/2,
                     353 + (SCREEN_WIDTH - 800)/2,
-                    454 + (SCREEN_WIDTH - 800)/2,
+                    452 + (SCREEN_WIDTH - 800)/2,
                     550 + (SCREEN_WIDTH - 800)/2,
                     647 + (SCREEN_WIDTH - 800)/2]
 POINT_PIT_HEIGHT = SCREEN_HEIGHT/2
@@ -70,20 +70,20 @@ blue_point_f = pygame.image.load("img/bpoint_full.png")
 
 pit_array = []
 
-pit0 = Pit.Pit("A", PIT_WIDTH_COORDS[0], BLUE_PIT_HEIGHT, 4, blue_pit_4)
-pit1 = Pit.Pit("B", PIT_WIDTH_COORDS[1], BLUE_PIT_HEIGHT, 4, blue_pit_4)
-pit2 = Pit.Pit("C", PIT_WIDTH_COORDS[2], BLUE_PIT_HEIGHT, 4, blue_pit_4)
-pit3 = Pit.Pit("D", PIT_WIDTH_COORDS[3], BLUE_PIT_HEIGHT, 4, blue_pit_4)
-pit4 = Pit.Pit("E", PIT_WIDTH_COORDS[4], BLUE_PIT_HEIGHT, 4, blue_pit_4)
-pit5 = Pit.Pit("F", PIT_WIDTH_COORDS[5], BLUE_PIT_HEIGHT, 4, blue_pit_4)
-pit6 = Pit.Pit("G", POINT_PIT_WIDTH[0], POINT_PIT_HEIGHT, 0, blue_point_e)
-pit7 = Pit.Pit("H", PIT_WIDTH_COORDS[5], RED_PIT_HEIGHT, 4, red_pit_4)
-pit8 = Pit.Pit("I", PIT_WIDTH_COORDS[4], RED_PIT_HEIGHT, 4, red_pit_4)
-pit9 = Pit.Pit("J", PIT_WIDTH_COORDS[3], RED_PIT_HEIGHT, 4, red_pit_4)
-pit10 = Pit.Pit("K", PIT_WIDTH_COORDS[2], RED_PIT_HEIGHT, 4, red_pit_4)
-pit11 = Pit.Pit("L", PIT_WIDTH_COORDS[1], RED_PIT_HEIGHT, 4, red_pit_4)
-pit12 = Pit.Pit("M", PIT_WIDTH_COORDS[0], RED_PIT_HEIGHT, 4, red_pit_4)
-pit13 = Pit.Pit("N", POINT_PIT_WIDTH[1], POINT_PIT_HEIGHT, 0, red_point_e)
+pit0 = Pit.Pit(0, PIT_WIDTH_COORDS[0], BLUE_PIT_HEIGHT, 4, blue_pit_4)
+pit1 = Pit.Pit(1, PIT_WIDTH_COORDS[1], BLUE_PIT_HEIGHT, 4, blue_pit_4)
+pit2 = Pit.Pit(2, PIT_WIDTH_COORDS[2], BLUE_PIT_HEIGHT, 4, blue_pit_4)
+pit3 = Pit.Pit(3, PIT_WIDTH_COORDS[3], BLUE_PIT_HEIGHT, 4, blue_pit_4)
+pit4 = Pit.Pit(4, PIT_WIDTH_COORDS[4], BLUE_PIT_HEIGHT, 4, blue_pit_4)
+pit5 = Pit.Pit(5, PIT_WIDTH_COORDS[5], BLUE_PIT_HEIGHT, 4, blue_pit_4)
+pit6 = Pit.Pit(6, POINT_PIT_WIDTH[0], POINT_PIT_HEIGHT, 0, blue_point_e)
+pit7 = Pit.Pit(7, PIT_WIDTH_COORDS[5], RED_PIT_HEIGHT, 4, red_pit_4)
+pit8 = Pit.Pit(8, PIT_WIDTH_COORDS[4], RED_PIT_HEIGHT, 4, red_pit_4)
+pit9 = Pit.Pit(9, PIT_WIDTH_COORDS[3], RED_PIT_HEIGHT, 4, red_pit_4)
+pit10 = Pit.Pit(10, PIT_WIDTH_COORDS[2], RED_PIT_HEIGHT, 4, red_pit_4)
+pit11 = Pit.Pit(11, PIT_WIDTH_COORDS[1], RED_PIT_HEIGHT, 4, red_pit_4)
+pit12 = Pit.Pit(12, PIT_WIDTH_COORDS[0], RED_PIT_HEIGHT, 4, red_pit_4)
+pit13 = Pit.Pit(13, POINT_PIT_WIDTH[1], POINT_PIT_HEIGHT, 0, red_point_e)
 
 pit_array.append(pit0)
 pit_array.append(pit1)
@@ -102,6 +102,8 @@ pit_array.append(pit13)
 
 pits = Mancala_UI.Pits(pit_array)
 
+mancala = Mancala.Mancala([4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0])
+
 run = True
 while run:
     
@@ -110,9 +112,17 @@ while run:
     pits.draw(screen)
 
     if pit0.action() == True :
-        print("hello")
+        print(pit0.seeds)
     if pit1.action() == True :
         print(pit1.seeds)
+    if pit2.action() == True :
+        print(pit2.seeds)
+    if pit3.action() == True :
+        print(pit3.seeds)
+    if pit4.action() == True :
+        print(pit4.seeds)
+    if pit5.action() == True :
+        print(pit5.seeds)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
