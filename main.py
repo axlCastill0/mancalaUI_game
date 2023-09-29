@@ -3,8 +3,8 @@ import pygame, Pit, Mancala_UI, Mancala
 pygame.init()
 clock = pygame.time.Clock()
 
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1100
+SCREEN_HEIGHT = 700
 
 RED_PIT_HEIGHT = 115 + (SCREEN_HEIGHT - 416)/2
 BLUE_PIT_HEIGHT = 301 + (SCREEN_HEIGHT - 416)/2
@@ -189,26 +189,20 @@ while run:
 
     pits.draw(screen)
 
+    updateGameInterface()
+
     if pit0.action() == True :
         mancala.playerMove(0)
-        mancala.cpuMove()
     if pit1.action() == True :
         mancala.playerMove(1)
-        mancala.cpuMove()
     if pit2.action() == True :
         mancala.playerMove(2)
-        mancala.cpuMove()
     if pit3.action() == True :
         mancala.playerMove(3)
-        mancala.cpuMove()
     if pit4.action() == True :
         mancala.playerMove(4)
-        mancala.cpuMove()
     if pit5.action() == True :
         mancala.playerMove(5)
-        mancala.cpuMove()
-
-    updateGameInterface()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
