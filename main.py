@@ -44,21 +44,21 @@ def drawTransparentBG() :
 pause_img_base = pygame.image.load("img/pause_btn_base.png")
 pause_img_hover = pygame.image.load("img/pause_btn_hover.png")
 pausebtn = Button.Button(pause_img_base, pause_img_hover, (SCREEN_WIDTH-90,50))
-pausenewgame_img_base = pygame.image.load("img/newgame_btn_base.png")
-pausenewgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
-pausenewgamebtn = Button.Button(pausenewgame_img_base, pausenewgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-menunewgame_img_base = pygame.image.load("img/newgame_btn_base.png")
-menunewgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
-menunewgamebtn = Button.Button(menunewgame_img_base, menunewgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
+newgame_img_base = pygame.image.load("img/newgame_btn_base.png")
+newgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
+newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
 return_img_base = pygame.image.load("img/return_btn_base.png")
 return_img_hover = pygame.image.load("img/return_btn_hover.png")
-returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
+returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
 exit_img_base = pygame.image.load("img/exit_btn_base.png")
 exit_img_hover = pygame.image.load("img/exit_btn_hover.png")
 exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
 back_img_base = pygame.image.load("img/back_btn_base.png")
 back_img_hover = pygame.image.load("img/back_btn_hover.png")
 backbtn = Button.Button(back_img_base, back_img_hover, (90, 50))
+options_img_base = pygame.image.load("img/options_btn_base.png")
+options_img_hover = pygame.image.load("img/options_btn_hover.png")
+optionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -248,15 +248,18 @@ def main_menu() :
     while run:
         screen.fill((0, 0, 20))
 
-        menunewgamebtn.draw(screen)
+        newgamebtn.draw(screen)
         exitbtn.draw(screen)
+        optionsbtn.draw(screen)
         
-        if menunewgamebtn.action() == True:
+        if newgamebtn.action() == True:
             mancala.newGrid()
             game()
             run = False
         if exitbtn.action() == True:
             sys.exit()
+        if optionsbtn.action() == True:
+            pass
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -276,14 +279,17 @@ def pause_menu() :
     while run :
         drawTransparentBG()
 
-        pausenewgamebtn.draw(screen)
+        newgamebtn.draw(screen)
         returnbtn.draw(screen)
+        optionsbtn.draw(screen)
 
-        if pausenewgamebtn.action() == True:
+        if newgamebtn.action() == True:
             mancala.newGrid()
             run = False
         if returnbtn.action() == True:
             run = False
+        if optionsbtn.action() == True:
+            pass
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
