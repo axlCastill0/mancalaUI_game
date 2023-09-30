@@ -44,15 +44,21 @@ def drawTransparentBG() :
 pause_img_base = pygame.image.load("img/pause_btn_base.png")
 pause_img_hover = pygame.image.load("img/pause_btn_hover.png")
 pausebtn = Button.Button(pause_img_base, pause_img_hover, (SCREEN_WIDTH-90,50))
-newgame_img_base = pygame.image.load("img/newgame_btn_base.png")
-newgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
-newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+pausenewgame_img_base = pygame.image.load("img/newgame_btn_base.png")
+pausenewgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
+pausenewgamebtn = Button.Button(pausenewgame_img_base, pausenewgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+menunewgame_img_base = pygame.image.load("img/newgame_btn_base.png")
+menunewgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
+menunewgamebtn = Button.Button(menunewgame_img_base, menunewgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
 return_img_base = pygame.image.load("img/return_btn_base.png")
 return_img_hover = pygame.image.load("img/return_btn_hover.png")
 returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
 exit_img_base = pygame.image.load("img/exit_btn_base.png")
 exit_img_hover = pygame.image.load("img/exit_btn_hover.png")
 exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
+back_img_base = pygame.image.load("img/back_btn_base.png")
+back_img_hover = pygame.image.load("img/back_btn_hover.png")
+backbtn = Button.Button(back_img_base, back_img_hover, (90, 50))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -236,36 +242,65 @@ def updateGameInterface() :
         screen.blit(text, text_rect)    
 
 def main_menu() :
-    pass
+    pygame.display.set_caption("Mancala - Main Menu")
 
-def pause_menu() :
     run = True
-    while run :
-        drawTransparentBG()
+    while run:
+        screen.fill((0, 0, 20))
 
-        newgamebtn.draw(screen)
-        returnbtn.draw(screen)
+        menunewgamebtn.draw(screen)
         exitbtn.draw(screen)
-
-        if returnbtn.action() == True:
-            run = False
-        if newgamebtn.action() == True:
+        
+        if menunewgamebtn.action() == True:
             mancala.newGrid()
+            game()
             run = False
         if exitbtn.action() == True:
             sys.exit()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
 
         pygame.display.update()
+        clock.tick(60)
+
+def options_menu() :
+    pass
+
+def pause_menu() :
+    pygame.display.set_caption("Mancala - Pause")
+
+    run = True
+    while run :
+        drawTransparentBG()
+
+        pausenewgamebtn.draw(screen)
+        returnbtn.draw(screen)
+
+        if pausenewgamebtn.action() == True:
+            mancala.newGrid()
+            run = False
+        if returnbtn.action() == True:
+            run = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
 
 def game():
+    pygame.display.set_caption("Mancala - Game")
+
+    run = True
     disabled = False
     current_time = 0
     button_press_time = 0
-    while True:
+    while run:
         current_time = pygame.time.get_ticks()
 
         screen.blit(BG, (0, 0))
@@ -275,6 +310,7 @@ def game():
         pits.draw(screen)
 
         pausebtn.draw(screen)
+        backbtn.draw(screen)
 
         updateGameInterface()
 
@@ -329,6 +365,9 @@ def game():
         if pausebtn.action() == True :
             if (not disabled) :
                 pause_menu()
+        if backbtn.action() == True :
+            if (not disabled) :
+                main_menu()
 
         if current_time - button_press_time > 1200 :
             mancala.cpuMove()
@@ -339,10 +378,10 @@ def game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
 
         pygame.display.update()
-        screen.fill((202, 228, 241))
         clock.tick(60)
 
-game()
+main_menu()
