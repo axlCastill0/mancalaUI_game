@@ -48,25 +48,46 @@ def drawTransparentBG() :
 
 pause_img_base = pygame.image.load("img/pause_btn_base.png")
 pause_img_hover = pygame.image.load("img/pause_btn_hover.png")
-pausebtn = Button.Button(pause_img_base, pause_img_hover, (SCREEN_WIDTH-90,50))
+pausebtn = Button.Button(pause_img_base, pause_img_hover, (SCREEN_WIDTH-90, 50))
+
 newgame_img_base = pygame.image.load("img/newgame_btn_base.png")
 newgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
-newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 75))
 menunewgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-100))
 gamenewgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, 60))
+
 return_img_base = pygame.image.load("img/return_btn_base.png")
 return_img_hover = pygame.image.load("img/return_btn_hover.png")
-returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
+returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-75))
+
 exit_img_base = pygame.image.load("img/exit_btn_base.png")
 exit_img_hover = pygame.image.load("img/exit_btn_hover.png")
 exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+200))
+
 back_img_base = pygame.image.load("img/back_btn_base.png")
 back_img_hover = pygame.image.load("img/back_btn_hover.png")
 backbtn = Button.Button(back_img_base, back_img_hover, (90, 50))
+
 options_img_base = pygame.image.load("img/options_btn_base.png")
 options_img_hover = pygame.image.load("img/options_btn_hover.png")
 optionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
 menuoptionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50))
+
+difficulty_img_base = pygame.image.load("img/difficulty_btn_base.png")
+difficulty_img_hover = pygame.image.load("img/difficulty_btn_hover.png")
+difficultybtn = Button.Button(difficulty_img_base, difficulty_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-75))
+
+easy_img_base = pygame.image.load("img/easy_btn_base.png")
+easy_img_hover = pygame.image.load("img/easy_btn_hover.png")
+easybtn = Button.Button(easy_img_base, easy_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
+
+medium_img_base = pygame.image.load("img/medium_btn_base.png")
+medium_img_hover = pygame.image.load("img/medium_btn_hover.png")
+mediumbtn = Button.Button(medium_img_base, medium_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+
+hard_img_base = pygame.image.load("img/hard_btn_base.png")
+hard_img_hover = pygame.image.load("img/hard_btn_hover.png")
+hardbtn = Button.Button(hard_img_base, hard_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -254,7 +275,7 @@ def main_menu() :
 
     run = True
     while run:
-        screen.fill((0, 0, 20))
+        screen.fill((0, 0, 30))
 
         text = get_font(110).render("Mancala", True, (255, 245, 245))
         text_rect = text.get_rect(center = (SCREEN_WIDTH/2, 90))
@@ -282,8 +303,60 @@ def main_menu() :
         pygame.display.update()
         clock.tick(60)
 
+def difficulty_menu() :
+    pygame.display.set_caption("Mancala - Difficulty")
+
+    run = True
+    while run :
+        screen.fill((0, 0, 30))
+
+        easybtn.draw(screen)
+        mediumbtn.draw(screen)
+        hardbtn.draw(screen)
+        backbtn.draw(screen)
+
+        if backbtn.action() == True:
+            run = False
+        if easybtn.action() == True:
+            mancala.difficulty = 0
+            run = False
+        if mediumbtn.action() == True:
+            mancala.difficulty = 1
+            run = False
+        if hardbtn.action() == True:
+            mancala.difficulty = 2
+            run = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
+
 def options_menu() :
-    pass
+    pygame.display.set_caption("Mancala - Options")
+
+    run = True
+    while run :
+        screen.fill((0, 0, 30))
+
+        difficultybtn.draw(screen)
+        backbtn.draw(screen)
+
+        if difficultybtn.action() == True:
+            difficulty_menu()
+        if backbtn.action() == True:
+            run = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
 
 def pause_menu() :
     pygame.display.set_caption("Mancala - Pause")
@@ -294,7 +367,6 @@ def pause_menu() :
 
         newgamebtn.draw(screen)
         returnbtn.draw(screen)
-        optionsbtn.draw(screen)
 
         if newgamebtn.action() == True:
             mancala.newGrid()
@@ -302,8 +374,6 @@ def pause_menu() :
             run = False
         if returnbtn.action() == True:
             run = False
-        if optionsbtn.action() == True:
-            options_menu()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
