@@ -44,8 +44,6 @@ class Mancala() :
                 self.currentTurn = 0
             else:
                 self.currentTurn = 1
-        #set "if difficulty" to change cpu method
-        self.cpuMove()
         print(self.grid)
     
     def cpuMove(self) :

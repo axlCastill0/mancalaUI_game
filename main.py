@@ -158,10 +158,6 @@ pit_array.append(pit11)
 pit_array.append(pit12)
 pit_array.append(pit13)
 
-# font = pygame.font.Font("PixelEmulator-xq08.ttf", POINT_SIZE)
-# text = font.render("4", True, POINT_COLOR)
-# text_rect = text.get_rect(center = (OP_POINT_TEXT_WIDTH, POINT_PIT_HEIGHT))
-
 pits = Mancala_UI.Pits(pit_array)
 
 mancala = Mancala.Mancala([4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0])
@@ -223,7 +219,11 @@ def main_menu() :
     pass
 
 def game():
+    current_time = 0
+    button_press_time = 0
     while True:
+        current_time = pygame.time.get_ticks()
+
         screen.blit(BG, (0, 0))
 
         screen.blit(board_img, board_rect)
@@ -233,17 +233,26 @@ def game():
         updateGameInterface()
 
         if pit0.action() == True :
+            button_press_time = pygame.time.get_ticks()
             mancala.playerMove(0)
         if pit1.action() == True :
+            button_press_time = pygame.time.get_ticks()
             mancala.playerMove(1)
         if pit2.action() == True :
+            button_press_time = pygame.time.get_ticks()
             mancala.playerMove(2)
         if pit3.action() == True :
+            button_press_time = pygame.time.get_ticks()
             mancala.playerMove(3)
         if pit4.action() == True :
+            button_press_time = pygame.time.get_ticks()
             mancala.playerMove(4)
         if pit5.action() == True :
+            button_press_time = pygame.time.get_ticks()
             mancala.playerMove(5)
+
+        if current_time - button_press_time > 1200 :
+            mancala.cpuMove()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
