@@ -46,19 +46,22 @@ pause_img_hover = pygame.image.load("img/pause_btn_hover.png")
 pausebtn = Button.Button(pause_img_base, pause_img_hover, (SCREEN_WIDTH-90,50))
 newgame_img_base = pygame.image.load("img/newgame_btn_base.png")
 newgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
-newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
+newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+menunewgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-100))
+gamenewgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, 60))
 return_img_base = pygame.image.load("img/return_btn_base.png")
 return_img_hover = pygame.image.load("img/return_btn_hover.png")
-returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
+returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
 exit_img_base = pygame.image.load("img/exit_btn_base.png")
 exit_img_hover = pygame.image.load("img/exit_btn_hover.png")
-exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
+exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+200))
 back_img_base = pygame.image.load("img/back_btn_base.png")
 back_img_hover = pygame.image.load("img/back_btn_hover.png")
 backbtn = Button.Button(back_img_base, back_img_hover, (90, 50))
 options_img_base = pygame.image.load("img/options_btn_base.png")
 options_img_hover = pygame.image.load("img/options_btn_hover.png")
-optionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+optionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
+menuoptionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -248,18 +251,23 @@ def main_menu() :
     while run:
         screen.fill((0, 0, 20))
 
-        newgamebtn.draw(screen)
+        text = get_font(110).render("Mancala", True, (255, 245, 245))
+        text_rect = text.get_rect(center = (SCREEN_WIDTH/2, 90))
+        screen.blit(text, text_rect)
+
+        menunewgamebtn.draw(screen)
         exitbtn.draw(screen)
-        optionsbtn.draw(screen)
+        menuoptionsbtn.draw(screen)
         
-        if newgamebtn.action() == True:
+        if menunewgamebtn.action() == True:
             mancala.newGrid()
+            mancala.gameEnded = 0
             game()
             run = False
         if exitbtn.action() == True:
             sys.exit()
-        if optionsbtn.action() == True:
-            pass
+        if menuoptionsbtn.action() == True:
+            options_menu()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -285,11 +293,12 @@ def pause_menu() :
 
         if newgamebtn.action() == True:
             mancala.newGrid()
+            mancala.gameEnded = 0
             run = False
         if returnbtn.action() == True:
             run = False
         if optionsbtn.action() == True:
-            pass
+            options_menu()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -374,13 +383,26 @@ def game():
         if backbtn.action() == True :
             if (not disabled) :
                 main_menu()
+        if gamenewgamebtn.action() == True :
+            mancala.newGrid()
+            mancala.gameEnded = 0
 
-        if current_time - button_press_time > 1200 :
+        if current_time - button_press_time > 1200 and mancala.gameEnded == 0:
             mancala.cpuMove()
             disabled = False
 
-        if not mancala.gameEnded :
+        if mancala.gameEnded == 0:
             mancala.checkEmpty()
+        if mancala.gameEnded == 1:
+            text = get_font(50).render("YOU WON", True, (255, 245, 245))
+            text_rect = text.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+            screen.blit(text, text_rect)
+            gamenewgamebtn.draw(screen)
+        if mancala.gameEnded == 2:
+            text = get_font(50).render("CPU WON", True, (255, 245, 245))
+            text_rect = text.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+            screen.blit(text, text_rect)
+            gamenewgamebtn.draw(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
