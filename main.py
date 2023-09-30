@@ -286,7 +286,8 @@ def game():
             mancala.cpuMove()
             disabled = False
 
-        mancala.checkEmpty()
+        if not mancala.gameEnded :
+            mancala.checkEmpty()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

@@ -73,18 +73,19 @@ class Mancala() :
         return True
     
     def checkEmpty(self) :
-        if not self.gameEnded :
-            cpuSum = 0
-            plrSum = 0
+        cpuSum = 0
+        plrSum = 0
+        for i in range(6) :
+            plrSum += self.grid[i]
+        for i in range(7, 13) :
+            cpuSum += self.grid[i]
+        if cpuSum == 0 :
+            self.grid[6] += plrSum
             for i in range(6) :
-                plrSum += self.grid[i]
+                self.grid[i] = 0
+            self.gameEnded = True
+        if plrSum == 0:
+            self.grid[13] += cpuSum
             for i in range(7, 13) :
-                cpuSum += self.grid[i]
-            if cpuSum == 0 :
-                self.grid[6] += plrSum
-                for i in range(6) :
-                    self.grid[i] = 0
-            if plrSum == 0:
-                self.grid[13] += cpuSum
-                for i in range(7, 13) :
-                    self.grid[i] = 0
+                self.grid[i] = 0
+            self.gameEnded = True
