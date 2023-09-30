@@ -23,7 +23,7 @@ MY_PIT_TEXT_HEIGHT = BLUE_PIT_HEIGHT + 65
 OP_POINT_TEXT_WIDTH = POINT_PIT_WIDTH[1] + 70
 MY_POINT_TEXT_WIDTH = POINT_PIT_WIDTH[0] - 70
 
-POINT_COLOR = pygame.Color(215, 255, 50)
+POINT_COLOR = pygame.Color(183, 118, 59)
 POINT_SIZE = 30
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -156,11 +156,16 @@ pit_array.append(pit11)
 pit_array.append(pit12)
 pit_array.append(pit13)
 
-
+# font = pygame.font.Font("PixelEmulator-xq08.ttf", POINT_SIZE)
+# text = font.render("4", True, POINT_COLOR)
+# text_rect = text.get_rect(center = (OP_POINT_TEXT_WIDTH, POINT_PIT_HEIGHT))
 
 pits = Mancala_UI.Pits(pit_array)
 
 mancala = Mancala.Mancala([4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0])
+
+def get_font(size) :
+    return pygame.font.Font("PixelEmulator-xq08.ttf", size)
 
 def updateGameInterface() :
     grid = mancala.grid
@@ -192,9 +197,25 @@ def updateGameInterface() :
             else :
                 pits.pits[i].img = red_pit_img_array[grid[i]]
 
-font = pygame.font.Font("PixelEmulator-xq08.ttf", POINT_SIZE)
-text = font.render("4", True, POINT_COLOR)
-text_rect = text.get_rect(center = (OP_POINT_TEXT_WIDTH, POINT_PIT_HEIGHT))
+    for i in range(7) :
+        if (i == 6) :
+            text = get_font(POINT_SIZE).render(str(grid[i]), True, POINT_COLOR)
+            text_rect = text.get_rect(center = (MY_POINT_TEXT_WIDTH, POINT_PIT_HEIGHT))
+            screen.blit(text, text_rect)
+            break
+        text = get_font(POINT_SIZE).render(str(grid[i]), True, POINT_COLOR)
+        text_rect = text.get_rect(center = (PIT_WIDTH_COORDS[i], MY_PIT_TEXT_HEIGHT))
+        screen.blit(text, text_rect)
+
+    for i in range(7, 14) :
+        if (i == 13) :
+            text = get_font(POINT_SIZE).render(str(grid[i]), True, POINT_COLOR)
+            text_rect = text.get_rect(center = (OP_POINT_TEXT_WIDTH, POINT_PIT_HEIGHT))
+            screen.blit(text, text_rect)
+            break
+        text = get_font(POINT_SIZE).render(str(grid[i]), True, POINT_COLOR)
+        text_rect = text.get_rect(center = (PIT_WIDTH_COORDS[len(PIT_WIDTH_COORDS) - i], OP_PIT_TEXT_HEIGHT))
+        screen.blit(text, text_rect)    
 
 def main_menu() :
     pass
@@ -204,8 +225,6 @@ def game():
         screen.blit(board_img, board_rect)
 
         pits.draw(screen)
-
-        screen.blit(text, text_rect)
 
         updateGameInterface()
 
