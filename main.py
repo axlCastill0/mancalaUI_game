@@ -1,6 +1,9 @@
 import pygame, Pit, Mancala_UI, Mancala, sys, Button
 
+pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
+pygame.mixer.init()
+
 clock = pygame.time.Clock()
 
 SCREEN_WIDTH = 1100
@@ -25,6 +28,8 @@ MY_POINT_TEXT_WIDTH = POINT_PIT_WIDTH[0] - 70
 
 POINT_COLOR = pygame.Color(183, 118, 59)
 POINT_SIZE = 30
+
+hit_sound = pygame.mixer.Sound("sound/hitsound.wav")
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Mancala - Game")
@@ -333,6 +338,7 @@ def game():
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(0)
+                hit_sound.play()
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -341,6 +347,7 @@ def game():
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(1)
+                hit_sound.play()
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -349,6 +356,7 @@ def game():
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(2)
+                hit_sound.play()
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -357,6 +365,7 @@ def game():
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(3)
+                hit_sound.play()
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -365,6 +374,7 @@ def game():
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(4)
+                hit_sound.play()
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -373,6 +383,7 @@ def game():
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(5)
+                hit_sound.play()
                 if mancala.currentTurn == 0 :
                     pass
                 else :
