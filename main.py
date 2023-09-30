@@ -1,4 +1,4 @@
-import pygame, Pit, Mancala_UI, Mancala, sys
+import pygame, Pit, Mancala_UI, Mancala, sys, Button
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -33,6 +33,10 @@ board_img = pygame.image.load("img/mancala_board.png").convert_alpha()
 board_rect = board_img.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
 
 BG = pygame.image.load("img/background_1.png")
+
+pause_btn_base = pygame.image.load("img/pause_btn_base.png")
+pause_btn_hover = pygame.image.load("img/pause_btn_hover.png")
+pausebtn = Button.Button(pause_btn_base, pause_btn_hover, (SCREEN_WIDTH-90,50))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -282,12 +286,14 @@ def game():
                 else :
                     disabled = True
 
-        if current_time - button_press_time > 1000 :
+        if current_time - button_press_time > 1200 :
             mancala.cpuMove()
             disabled = False
 
         if not mancala.gameEnded :
             mancala.checkEmpty()
+
+        pausebtn.draw(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
