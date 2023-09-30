@@ -237,32 +237,50 @@ def game():
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(0)
-                disabled = True
+                if mancala.currentTurn == 0 :
+                    pass
+                else :
+                    disabled = True
         if pit1.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(1)
-                disabled = True
+                if mancala.currentTurn == 0 :
+                    pass
+                else :
+                    disabled = True
         if pit2.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(2)
-                disabled = True
+                if mancala.currentTurn == 0 :
+                    pass
+                else :
+                    disabled = True
         if pit3.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(3)
-                disabled = True
+                if mancala.currentTurn == 0 :
+                    pass
+                else :
+                    disabled = True
         if pit4.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(4)
-                disabled = True
+                if mancala.currentTurn == 0 :
+                    pass
+                else :
+                    disabled = True
         if pit5.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
                 mancala.playerMove(5)
-                disabled = True
+                if mancala.currentTurn == 0 :
+                    pass
+                else :
+                    disabled = True
 
         if current_time - button_press_time > 1000 :
             mancala.cpuMove()
