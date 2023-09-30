@@ -62,7 +62,7 @@ returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SC
 
 exit_img_base = pygame.image.load("img/exit_btn_base.png")
 exit_img_hover = pygame.image.load("img/exit_btn_hover.png")
-exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+200))
+exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+100))
 
 back_img_base = pygame.image.load("img/back_btn_base.png")
 back_img_hover = pygame.image.load("img/back_btn_hover.png")
@@ -71,7 +71,7 @@ backbtn = Button.Button(back_img_base, back_img_hover, (90, 50))
 options_img_base = pygame.image.load("img/options_btn_base.png")
 options_img_hover = pygame.image.load("img/options_btn_hover.png")
 optionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
-menuoptionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50))
+menuoptionsbtn = Button.Button(options_img_base, options_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
 
 difficulty_img_base = pygame.image.load("img/difficulty_btn_base.png")
 difficulty_img_hover = pygame.image.load("img/difficulty_btn_hover.png")
@@ -88,6 +88,18 @@ mediumbtn = Button.Button(medium_img_base, medium_img_hover, (SCREEN_WIDTH/2, SC
 hard_img_base = pygame.image.load("img/hard_btn_base.png")
 hard_img_hover = pygame.image.load("img/hard_btn_hover.png")
 hardbtn = Button.Button(hard_img_base, hard_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
+
+turn_img_base = pygame.image.load("img/turn_btn_base.png")
+turn_img_hover = pygame.image.load("img/turn_btn_hover.png")
+turnbtn = Button.Button(turn_img_base, turn_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+75))
+
+you_img_base = pygame.image.load("img/you_btn_base.png")
+you_img_hover = pygame.image.load("img/you_btn_hover.png")
+youbtn = Button.Button(you_img_base, you_img_hover, (SCREEN_WIDTH/2+150, SCREEN_HEIGHT/2))
+
+cpu_img_base = pygame.image.load("img/cpu_btn_base.png")
+cpu_img_hover = pygame.image.load("img/cpu_btn_hover.png")
+cpubtn = Button.Button(cpu_img_base, cpu_img_hover, (SCREEN_WIDTH/2-150, SCREEN_HEIGHT/2))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -271,7 +283,7 @@ def updateGameInterface() :
         screen.blit(text, text_rect)    
 
 def main_menu() :
-    pygame.display.set_caption("Mancala - Main Menu")
+    pygame.display.set_caption("Mancala - Axl Castillo | Thomas Journault")
 
     run = True
     while run:
@@ -335,6 +347,32 @@ def difficulty_menu() :
         pygame.display.update()
         clock.tick(60)
 
+def first_turn_menu() :
+    pygame.display.set_caption("Mancala - First Turn")
+
+    run = True
+    while run :
+        screen.fill((0, 0, 30))
+
+        cpubtn.draw(screen)
+        youbtn.draw(screen)
+        backbtn.draw(screen)
+
+        if cpubtn.action() == True:
+            pass
+        if youbtn.action() == True:
+            pass
+        if backbtn.action() == True:
+            run = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
+
 def options_menu() :
     pygame.display.set_caption("Mancala - Options")
 
@@ -344,11 +382,14 @@ def options_menu() :
 
         difficultybtn.draw(screen)
         backbtn.draw(screen)
+        turnbtn.draw(screen)
 
         if difficultybtn.action() == True:
             difficulty_menu()
         if backbtn.action() == True:
             run = False
+        if turnbtn.action() == True:
+            first_turn_menu()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
