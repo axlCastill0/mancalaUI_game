@@ -27,7 +27,7 @@ POINT_COLOR = pygame.Color(183, 118, 59)
 POINT_SIZE = 30
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Mancala - Axl Castillo / Thomas Journault")
+pygame.display.set_caption("Mancala - Game")
 
 board_img = pygame.image.load("img/mancala_board.png").convert_alpha()
 board_rect = board_img.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
