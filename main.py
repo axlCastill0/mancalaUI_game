@@ -50,6 +50,9 @@ newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2,
 return_img_base = pygame.image.load("img/return_btn_base.png")
 return_img_hover = pygame.image.load("img/return_btn_hover.png")
 returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
+exit_img_base = pygame.image.load("img/exit_btn_base.png")
+exit_img_hover = pygame.image.load("img/exit_btn_hover.png")
+exitbtn = Button.Button(exit_img_base, exit_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2+150))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -242,12 +245,15 @@ def pause_menu() :
 
         newgamebtn.draw(screen)
         returnbtn.draw(screen)
+        exitbtn.draw(screen)
 
         if returnbtn.action() == True:
             run = False
         if newgamebtn.action() == True:
             mancala.newGrid()
             run = False
+        if exitbtn.action() == True:
+            sys.exit()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
