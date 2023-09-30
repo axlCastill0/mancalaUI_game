@@ -1,6 +1,6 @@
 import pygame, Pit, Mancala_UI, Mancala, sys, Button
 
-pygame.mixer.pre_init(44100, -16, 2, 512)
+pygame.mixer.pre_init(44100, -16, 1, 64)
 pygame.init()
 pygame.mixer.init()
 
