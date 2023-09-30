@@ -327,7 +327,8 @@ def game():
                 else :
                     disabled = True
         if pausebtn.action() == True :
-            pause_menu()
+            if (not disabled) :
+                pause_menu()
 
         if current_time - button_press_time > 1200 :
             mancala.cpuMove()
