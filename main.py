@@ -34,9 +34,22 @@ board_rect = board_img.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
 
 BG = pygame.image.load("img/background_1.png")
 
-pause_btn_base = pygame.image.load("img/pause_btn_base.png")
-pause_btn_hover = pygame.image.load("img/pause_btn_hover.png")
-pausebtn = Button.Button(pause_btn_base, pause_btn_hover, (SCREEN_WIDTH-90,50))
+def drawTransparentBG() :
+    s = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    s.fill((10,10,10))
+    s.set_colorkey((255,255,255))
+    s.set_alpha(32)
+    screen.blit(s, (0, 0))
+
+pause_img_base = pygame.image.load("img/pause_btn_base.png")
+pause_img_hover = pygame.image.load("img/pause_btn_hover.png")
+pausebtn = Button.Button(pause_img_base, pause_img_hover, (SCREEN_WIDTH-90,50))
+newgame_img_base = pygame.image.load("img/newgame_btn_base.png")
+newgame_img_hover = pygame.image.load("img/newgame_btn_hover.png")
+newgamebtn = Button.Button(newgame_img_base, newgame_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+return_img_base = pygame.image.load("img/return_btn_base.png")
+return_img_hover = pygame.image.load("img/return_btn_hover.png")
+returnbtn = Button.Button(return_img_base, return_img_hover, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-150))
 
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
@@ -222,6 +235,26 @@ def updateGameInterface() :
 def main_menu() :
     pass
 
+def pause_menu() :
+    run = True
+    while run :
+        drawTransparentBG()
+
+        newgamebtn.draw(screen)
+        returnbtn.draw(screen)
+
+        if returnbtn.action() == True:
+            run = False
+        if newgamebtn.action() == True:
+            mancala.newGrid()
+            run = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+        pygame.display.update()
+
 def game():
     disabled = False
     current_time = 0
@@ -234,6 +267,8 @@ def game():
         screen.blit(board_img, board_rect)
 
         pits.draw(screen)
+
+        pausebtn.draw(screen)
 
         updateGameInterface()
 
@@ -285,6 +320,8 @@ def game():
                     pass
                 else :
                     disabled = True
+        if pausebtn.action() == True :
+            pause_menu()
 
         if current_time - button_press_time > 1200 :
             mancala.cpuMove()
@@ -292,8 +329,6 @@ def game():
 
         if not mancala.gameEnded :
             mancala.checkEmpty()
-
-        pausebtn.draw(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
