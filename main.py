@@ -32,6 +32,8 @@ pygame.display.set_caption("Mancala - Game")
 board_img = pygame.image.load("img/mancala_board.png").convert_alpha()
 board_rect = board_img.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
 
+BG = pygame.image.load("img/background_1.png")
+
 red_pit_0 = pygame.image.load("img/red_empty.png")
 red_pit_1 = pygame.image.load("img/red_1.png")
 red_pit_2 = pygame.image.load("img/red_2.png")
@@ -222,6 +224,8 @@ def main_menu() :
 
 def game():
     while True:
+        screen.blit(BG, (0, 0))
+
         screen.blit(board_img, board_rect)
 
         pits.draw(screen)
