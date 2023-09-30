@@ -44,7 +44,6 @@ class Mancala() :
                 self.currentTurn = 0
             else:
                 self.currentTurn = 1
-        print(self.grid)
     
     def cpuMove(self) :
         while self.currentTurn != 0:

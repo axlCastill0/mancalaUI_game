@@ -219,6 +219,7 @@ def main_menu() :
     pass
 
 def game():
+    disabled = False
     current_time = 0
     button_press_time = 0
     while True:
@@ -233,26 +234,39 @@ def game():
         updateGameInterface()
 
         if pit0.action() == True :
-            button_press_time = pygame.time.get_ticks()
-            mancala.playerMove(0)
+            if (not disabled) :
+                button_press_time = pygame.time.get_ticks()
+                mancala.playerMove(0)
+                disabled = True
         if pit1.action() == True :
-            button_press_time = pygame.time.get_ticks()
-            mancala.playerMove(1)
+            if (not disabled) :
+                button_press_time = pygame.time.get_ticks()
+                mancala.playerMove(1)
+                disabled = True
         if pit2.action() == True :
-            button_press_time = pygame.time.get_ticks()
-            mancala.playerMove(2)
+            if (not disabled) :
+                button_press_time = pygame.time.get_ticks()
+                mancala.playerMove(2)
+                disabled = True
         if pit3.action() == True :
-            button_press_time = pygame.time.get_ticks()
-            mancala.playerMove(3)
+            if (not disabled) :
+                button_press_time = pygame.time.get_ticks()
+                mancala.playerMove(3)
+                disabled = True
         if pit4.action() == True :
-            button_press_time = pygame.time.get_ticks()
-            mancala.playerMove(4)
+            if (not disabled) :
+                button_press_time = pygame.time.get_ticks()
+                mancala.playerMove(4)
+                disabled = True
         if pit5.action() == True :
-            button_press_time = pygame.time.get_ticks()
-            mancala.playerMove(5)
+            if (not disabled) :
+                button_press_time = pygame.time.get_ticks()
+                mancala.playerMove(5)
+                disabled = True
 
-        if current_time - button_press_time > 1200 :
+        if current_time - button_press_time > 1000 :
             mancala.cpuMove()
+            disabled = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
