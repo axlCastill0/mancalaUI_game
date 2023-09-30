@@ -1,4 +1,4 @@
-import pygame, Pit, Mancala_UI, Mancala
+import pygame, Pit, Mancala_UI, Mancala, sys
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -17,6 +17,14 @@ PIT_WIDTH_COORDS = [151 + (SCREEN_WIDTH - 800)/2,
 POINT_PIT_HEIGHT = SCREEN_HEIGHT/2
 POINT_PIT_WIDTH = [742 + (SCREEN_WIDTH - 800)/2,
                    59 + (SCREEN_WIDTH - 800)/2]
+
+OP_PIT_TEXT_HEIGHT = RED_PIT_HEIGHT - 65
+MY_PIT_TEXT_HEIGHT = BLUE_PIT_HEIGHT + 65
+OP_POINT_TEXT_WIDTH = POINT_PIT_WIDTH[1] + 70
+MY_POINT_TEXT_WIDTH = POINT_PIT_WIDTH[0] - 70
+
+POINT_COLOR = pygame.Color(215, 255, 50)
+POINT_SIZE = 30
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Mancala - Axl Castillo / Thomas Journault")
@@ -148,6 +156,8 @@ pit_array.append(pit11)
 pit_array.append(pit12)
 pit_array.append(pit13)
 
+
+
 pits = Mancala_UI.Pits(pit_array)
 
 mancala = Mancala.Mancala([4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0])
@@ -182,34 +192,42 @@ def updateGameInterface() :
             else :
                 pits.pits[i].img = red_pit_img_array[grid[i]]
 
-run = True
-while run:
-    
-    screen.blit(board_img, board_rect)
+font = pygame.font.Font("PixelEmulator-xq08.ttf", POINT_SIZE)
+text = font.render("4", True, POINT_COLOR)
+text_rect = text.get_rect(center = (OP_POINT_TEXT_WIDTH, POINT_PIT_HEIGHT))
 
-    pits.draw(screen)
+def main_menu() :
+    pass
 
-    updateGameInterface()
+def game():
+    while True:
+        screen.blit(board_img, board_rect)
 
-    if pit0.action() == True :
-        mancala.playerMove(0)
-    if pit1.action() == True :
-        mancala.playerMove(1)
-    if pit2.action() == True :
-        mancala.playerMove(2)
-    if pit3.action() == True :
-        mancala.playerMove(3)
-    if pit4.action() == True :
-        mancala.playerMove(4)
-    if pit5.action() == True :
-        mancala.playerMove(5)
+        pits.draw(screen)
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+        screen.blit(text, text_rect)
 
-    pygame.display.update()
-    screen.fill((202, 228, 241))
-    clock.tick(60)
+        updateGameInterface()
 
-pygame.quit()
+        if pit0.action() == True :
+            mancala.playerMove(0)
+        if pit1.action() == True :
+            mancala.playerMove(1)
+        if pit2.action() == True :
+            mancala.playerMove(2)
+        if pit3.action() == True :
+            mancala.playerMove(3)
+        if pit4.action() == True :
+            mancala.playerMove(4)
+        if pit5.action() == True :
+            mancala.playerMove(5)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+        pygame.display.update()
+        screen.fill((202, 228, 241))
+        clock.tick(60)
+
+game()
