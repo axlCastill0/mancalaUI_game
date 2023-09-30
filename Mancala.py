@@ -5,6 +5,7 @@ class Mancala() :
         self.grid = grid
         self.difficulty = 0
         self.currentTurn = 0
+        self.gameEnded = False
         self.opposite_pit_mapping = {0 : 12, 1 : 11, 2 : 10, 3 : 9, 4 : 8, 5 : 7, 7 : 5, 8 : 4, 9 : 3, 10 : 2, 11 : 1, 12 : 0}
 
     def newGrid(self) :
@@ -13,16 +14,6 @@ class Mancala() :
     def playerMove(self, id) :
         i = self.grid[id]
         self.grid[id] = 0
-
-        sum = 0
-        grainesSum = 0
-        for a in range(6) :
-            grainesSum += self.grid[a]
-        if (grainesSum == 0) :
-            for j in range(7, 13) :
-                sum += self.grid[j]
-                self.grid[j] = 0
-            self.grid[13] = self.grid[13] + sum
     
         for x in range(i):
             if id + x + 1 == 13:
@@ -56,14 +47,6 @@ class Mancala() :
                 ranId = random.randint(7, 12)
                 index += 1
             
-            if (index == 6) :
-                sum = 0
-                for j in range(6) :
-                    sum += self.grid[j]
-                    self.grid[j] = 0
-                self.grid[6] = self.grid[6] + sum
-                break
-            
             i = self.grid[ranId]
             self.grid[ranId] = 0
 
@@ -88,3 +71,20 @@ class Mancala() :
     
     def checkWinner(self) :
         return True
+    
+    def checkEmpty(self) :
+        if not self.gameEnded :
+            cpuSum = 0
+            plrSum = 0
+            for i in range(6) :
+                plrSum += self.grid[i]
+            for i in range(7, 13) :
+                cpuSum += self.grid[i]
+            if cpuSum == 0 :
+                self.grid[6] += plrSum
+                for i in range(6) :
+                    self.grid[i] = 0
+            if plrSum == 0:
+                self.grid[13] += cpuSum
+                for i in range(7, 13) :
+                    self.grid[i] = 0
