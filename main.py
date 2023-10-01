@@ -300,8 +300,8 @@ def main_menu() :
         
         if menunewgamebtn.action() == True:
             btn_sound.play()
-            mancala.newGrid()
             mancala.gameEnded = 0
+            mancala.newGrid()
             game()
             run = False
         if exitbtn.action() == True:
@@ -536,6 +536,8 @@ def game():
                 mancala.cpuMove()
             elif mancala.difficulty == 1:
                 mancala.cpuMoveMax()
+            elif mancala.difficulty == 2:
+                mancala.cpuMoveMinMax()
             disabled = False
 
         if mancala.gameEnded == 0:

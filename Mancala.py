@@ -12,11 +12,14 @@ class Mancala() :
     def newGrid(self) :
         self.grid = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
         if self.firstTurn == 1 :
+            print("here")
             self.currentTurn = 1
             if self.difficulty == 0:
                 self.cpuMove()
             elif self.difficulty == 1:
                 self.cpuMoveMax()
+            elif self.difficulty == 2:
+                self.cpuMoveMinMax()
 
     def playerMove(self, id) :
         i = self.grid[id]
@@ -131,3 +134,67 @@ class Mancala() :
             for i in range(7, 13) :
                 self.grid[i] = 0
             self.gameEnded = 2
+
+    def cpuMoveMinMax(self):
+        while self.currentTurn != 0:
+            _, best_move = self.minimax(self.grid, self.currentTurn, depth=3)
+        
+            best_move = min(max(best_move, 7), 12)
+
+            print(best_move)
+        
+            self.grid = self.performMove(self.grid, best_move)
+            self.currentTurn = 1 - self.currentTurn
+
+    def minimax(self, state, maximizing_player, depth):
+        if depth == 0 or self.isTerminal(state):
+            return self.evaluate(state), None
+
+        if maximizing_player:
+            max_eval = float('-inf')
+            best_move = None
+            for move in range(7, 13):
+                if state[move] > 0:
+                    new_state = self.performMove(state[:], move)
+                    eval, _ = self.minimax(new_state, False, depth - 1)
+                    if eval > max_eval:
+                        max_eval = eval
+                        best_move = move
+            return max_eval, best_move
+        else:
+            min_eval = float('inf')
+            best_move = None
+            for move in range(0, 6):
+                if state[move] > 0:
+                    new_state = self.performMove(state[:], move)
+                    eval, _ = self.minimax(new_state, True, depth - 1)
+                    if eval < min_eval:
+                        min_eval = eval
+                        best_move = move
+            return min_eval, best_move
+
+    def evaluate(self, state):
+        return state[6] - state[13]
+
+    def isTerminal(self, state):
+        return sum(state[:6]) == 0 or sum(state[7:13]) == 0
+
+    def performMove(self, state, move):
+        stones = state[move]
+        state[move] = 0
+        current_pit = move
+
+        while stones > 0:
+            current_pit = (current_pit + 1) % 14
+            if current_pit != 6:
+                state[current_pit] += 1
+                stones -= 1
+
+        if current_pit != 13 and state[current_pit] == 1 and state[current_pit] != 0:
+            opposite_pit = 12 - current_pit
+            if state[opposite_pit] > 0:
+                state[13] += state[current_pit] + state[opposite_pit]
+                state[current_pit] = 0
+                state[opposite_pit] = 0
+
+        return state
