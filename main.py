@@ -300,7 +300,10 @@ def main_menu() :
         if menunewgamebtn.action() == True:
             mancala.newGrid()
             mancala.gameEnded = 0
-            game()
+            if mancala.currentTurn == 1:
+                game(1)
+            else :
+                game(0)
             run = False
         if exitbtn.action() == True:
             sys.exit()
@@ -359,9 +362,9 @@ def first_turn_menu() :
         backbtn.draw(screen)
 
         if cpubtn.action() == True:
-            pass
+            mancala.currentTurn = 1
         if youbtn.action() == True:
-            pass
+            mancala.currentTurn = 0
         if backbtn.action() == True:
             run = False
 
@@ -424,7 +427,7 @@ def pause_menu() :
         pygame.display.update()
         clock.tick(60)
 
-def game():
+def game(turn):
     pygame.display.set_caption("Mancala - Game")
 
     run = True
@@ -442,6 +445,10 @@ def game():
 
         pausebtn.draw(screen)
         backbtn.draw(screen)
+
+        if turn == 1:
+            mancala.cpuMove()
+            turn = 0
 
         updateGameInterface()
 
@@ -510,18 +517,21 @@ def game():
             mancala.gameEnded = 0
 
         if current_time - button_press_time > 1200 and mancala.gameEnded == 0:
-            mancala.cpuMove()
+            if mancala.difficulty == 0:
+                mancala.cpuMove()
+            elif mancala.difficulty == 1:
+                mancala.cpuMoveMax()
             disabled = False
 
         if mancala.gameEnded == 0:
             mancala.checkEmpty()
         if mancala.gameEnded == 1:
-            text = get_font(50).render("YOU WON", True, (255, 245, 245))
+            text = get_font(60).render("YOU WON", True, (255, 245, 245))
             text_rect = text.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
             screen.blit(text, text_rect)
             gamenewgamebtn.draw(screen)
         if mancala.gameEnded == 2:
-            text = get_font(50).render("CPU WON", True, (255, 245, 245))
+            text = get_font(60).render("CPU WON", True, (255, 245, 245))
             text_rect = text.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
             screen.blit(text, text_rect)
             gamenewgamebtn.draw(screen)

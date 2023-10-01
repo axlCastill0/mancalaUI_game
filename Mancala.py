@@ -5,6 +5,7 @@ class Mancala() :
         self.grid = grid
         self.difficulty = 0
         self.currentTurn = 0
+        self.firstTurn = 0
         self.gameEnded = 0
         self.opposite_pit_mapping = {0 : 12, 1 : 11, 2 : 10, 3 : 9, 4 : 8, 5 : 7, 7 : 5, 8 : 4, 9 : 3, 10 : 2, 11 : 1, 12 : 0}
 
@@ -71,9 +72,41 @@ class Mancala() :
                     self.currentTurn = 1
                 else:
                     self.currentTurn = 0
-    
-    def checkWinner(self) :
-        return True
+
+    def cpuMoveMax(self):
+        while self.currentTurn != 0:
+            max_pit = -1
+            max_stones = -1
+
+            for i in range(7, 13):
+                if self.grid[i] > max_stones:
+                    max_stones = self.grid[i]
+                    max_pit = i
+            
+            if max_stones == 0:
+                break
+
+            i = self.grid[max_pit]
+            self.grid[max_pit] = 0
+
+            for x in range(i):
+                if max_pit + x + 1 > 13:
+                    max_pit = - x - 1
+                    self.grid[max_pit + x + 1] += 1
+                else:
+                    self.grid[max_pit + x + 1] += 1
+
+                if (x == i - 1) and (self.grid[max_pit + x + 1] == 1) and ((max_pit + x + 1) != 6) and ((max_pit + x + 1) != 13) and (self.grid[self.opposite_pit_mapping[max_pit + x + 1]] != 0):
+                    if (max_pit + x + 1 != 0) and (max_pit + x + 1 != 1) and (max_pit + x + 1 != 2) and (max_pit + x + 1 != 3) and (max_pit + x + 1 != 4) and (max_pit + x + 1 != 5):
+                        self.grid[13] += 1
+                        self.grid[13] += self.grid[self.opposite_pit_mapping[max_pit + x + 1]]
+                        self.grid[max_pit + x + 1] = 0
+                        self.grid[self.opposite_pit_mapping[max_pit + x + 1]] = 0
+
+                if (x == i - 1) and (max_pit + x + 1 == 13):
+                    self.currentTurn = 1
+                else:
+                    self.currentTurn = 0
     
     def checkEmpty(self):
         cpuSum = 0
