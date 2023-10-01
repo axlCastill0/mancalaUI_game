@@ -30,6 +30,7 @@ POINT_COLOR = pygame.Color(183, 118, 59)
 POINT_SIZE = 30
 
 hit_sound = pygame.mixer.Sound("sound/hitsound.wav")
+btn_sound = pygame.mixer.Sound("sound/buttonsound.wav")
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Mancala - Game")
@@ -298,6 +299,7 @@ def main_menu() :
         menuoptionsbtn.draw(screen)
         
         if menunewgamebtn.action() == True:
+            btn_sound.play()
             mancala.newGrid()
             mancala.gameEnded = 0
             if mancala.currentTurn == 1:
@@ -306,8 +308,10 @@ def main_menu() :
                 game(0)
             run = False
         if exitbtn.action() == True:
+            btn_sound.play()
             sys.exit()
         if menuoptionsbtn.action() == True:
+            btn_sound.play()
             options_menu()
 
         for event in pygame.event.get():
@@ -331,14 +335,18 @@ def difficulty_menu() :
         backbtn.draw(screen)
 
         if backbtn.action() == True:
+            btn_sound.play()
             run = False
         if easybtn.action() == True:
+            btn_sound.play()
             mancala.difficulty = 0
             run = False
         if mediumbtn.action() == True:
+            btn_sound.play()
             mancala.difficulty = 1
             run = False
         if hardbtn.action() == True:
+            btn_sound.play()
             mancala.difficulty = 2
             run = False
 
@@ -362,10 +370,15 @@ def first_turn_menu() :
         backbtn.draw(screen)
 
         if cpubtn.action() == True:
+            btn_sound.play()
             mancala.currentTurn = 1
+            run = False
         if youbtn.action() == True:
+            btn_sound.play()
             mancala.currentTurn = 0
+            run = False
         if backbtn.action() == True:
+            btn_sound.play()
             run = False
 
         for event in pygame.event.get():
@@ -388,10 +401,13 @@ def options_menu() :
         turnbtn.draw(screen)
 
         if difficultybtn.action() == True:
+            btn_sound.play()
             difficulty_menu()
         if backbtn.action() == True:
+            btn_sound.play()
             run = False
         if turnbtn.action() == True:
+            btn_sound.play()
             first_turn_menu()
 
         for event in pygame.event.get():
@@ -413,10 +429,12 @@ def pause_menu() :
         returnbtn.draw(screen)
 
         if newgamebtn.action() == True:
+            btn_sound.play()
             mancala.newGrid()
             mancala.gameEnded = 0
             run = False
         if returnbtn.action() == True:
+            btn_sound.play()
             run = False
 
         for event in pygame.event.get():
@@ -508,11 +526,14 @@ def game(turn):
                     disabled = True
         if pausebtn.action() == True :
             if (not disabled) :
+                btn_sound.play()
                 pause_menu()
         if backbtn.action() == True :
             if (not disabled) :
+                btn_sound.play()
                 main_menu()
         if gamenewgamebtn.action() == True :
+            btn_sound.play()
             mancala.newGrid()
             mancala.gameEnded = 0
 
