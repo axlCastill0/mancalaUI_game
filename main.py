@@ -302,10 +302,7 @@ def main_menu() :
             btn_sound.play()
             mancala.newGrid()
             mancala.gameEnded = 0
-            if mancala.currentTurn == 1:
-                game(1)
-            else :
-                game(0)
+            game()
             run = False
         if exitbtn.action() == True:
             btn_sound.play()
@@ -371,11 +368,11 @@ def first_turn_menu() :
 
         if cpubtn.action() == True:
             btn_sound.play()
-            mancala.currentTurn = 1
+            mancala.firstTurn = 1
             run = False
         if youbtn.action() == True:
             btn_sound.play()
-            mancala.currentTurn = 0
+            mancala.firstTurn = 0
             run = False
         if backbtn.action() == True:
             btn_sound.play()
@@ -445,7 +442,7 @@ def pause_menu() :
         pygame.display.update()
         clock.tick(60)
 
-def game(turn):
+def game():
     pygame.display.set_caption("Mancala - Game")
 
     run = True
@@ -463,10 +460,6 @@ def game(turn):
 
         pausebtn.draw(screen)
         backbtn.draw(screen)
-
-        if turn == 1:
-            mancala.cpuMove()
-            turn = 0
 
         updateGameInterface()
 
@@ -532,10 +525,11 @@ def game(turn):
             if (not disabled) :
                 btn_sound.play()
                 main_menu()
-        if gamenewgamebtn.action() == True :
-            btn_sound.play()
-            mancala.newGrid()
-            mancala.gameEnded = 0
+        if mancala.gameEnded != 0:
+            if gamenewgamebtn.action() == True :
+                btn_sound.play()
+                mancala.newGrid()
+                mancala.gameEnded = 0
 
         if current_time - button_press_time > 1200 and mancala.gameEnded == 0:
             if mancala.difficulty == 0:

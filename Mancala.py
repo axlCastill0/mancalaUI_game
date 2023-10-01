@@ -11,6 +11,12 @@ class Mancala() :
 
     def newGrid(self) :
         self.grid = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
+        if self.firstTurn == 1 :
+            self.currentTurn = 1
+            if self.difficulty == 0:
+                self.cpuMove()
+            elif self.difficulty == 1:
+                self.cpuMoveMax()
 
     def playerMove(self, id) :
         i = self.grid[id]
