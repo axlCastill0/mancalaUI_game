@@ -193,6 +193,7 @@ class Mancala() :
             for i in range(6) :
                 self.grid[i] = 0
             self.gameEnded = 1
+            return
         elif plrSum == 0:
             self.grid[13] += cpuSum
             for i in range(7, 13) :

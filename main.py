@@ -529,7 +529,7 @@ def game():
         if mancala.gameEnded != 0:
             if gamenewgamebtn.action() == True :
                 btn_sound.play()
-                mancala.gameEnded = 1
+                current_time = 0
                 mancala.newGrid()
 
         if mancala.gameEnded == 0:
@@ -551,14 +551,13 @@ def game():
             gamenewgamebtn.draw(screen)
 
         if current_time - button_press_time > 1200 and mancala.gameEnded == 0:
-            if mancala.gameEnded == 0:
-                if mancala.difficulty == 0:
-                    mancala.cpuMove()
-                elif mancala.difficulty == 1:
-                    mancala.cpuMoveMax()
-                elif mancala.difficulty == 2:
-                    mancala.cpuMoveMinMax()
-                disabled = False
+            if mancala.difficulty == 0:
+                mancala.cpuMove()
+            elif mancala.difficulty == 1:
+                mancala.cpuMoveMax()
+            elif mancala.difficulty == 2:
+                mancala.cpuMoveMinMax()
+            disabled = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
