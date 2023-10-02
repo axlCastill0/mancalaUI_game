@@ -534,15 +534,6 @@ def game():
                 mancala.newGrid()
                 mancala.gameEnded = 0
 
-        if current_time - button_press_time > 1200 and mancala.gameEnded == 0:
-            if mancala.difficulty == 0:
-                mancala.cpuMove()
-            elif mancala.difficulty == 1:
-                mancala.cpuMoveMax()
-            elif mancala.difficulty == 2:
-                mancala.cpuMoveMinMax()
-            disabled = False
-
         if mancala.gameEnded == 0:
             mancala.checkEmpty()
         if mancala.gameEnded == 1:
@@ -555,6 +546,21 @@ def game():
             text_rect = text.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
             screen.blit(text, text_rect)
             gamenewgamebtn.draw(screen)
+        if mancala.gameEnded == 3:
+            text = get_font(60).render("DRAW", True, (255, 245, 245))
+            text_rect = text.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+            screen.blit(text, text_rect)
+            gamenewgamebtn.draw(screen)
+
+        if current_time - button_press_time > 1200:
+            if mancala.gameEnded == 0:
+                if mancala.difficulty == 0:
+                    mancala.cpuMove()
+                elif mancala.difficulty == 1:
+                    mancala.cpuMoveMax()
+                elif mancala.difficulty == 2:
+                    mancala.cpuMoveMinMax()
+                disabled = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

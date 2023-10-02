@@ -116,24 +116,6 @@ class Mancala() :
                     self.currentTurn = 1
                 else:
                     self.currentTurn = 0
-    
-    def checkEmpty(self):
-        cpuSum = 0
-        plrSum = 0
-        for i in range(6) :
-            plrSum += self.grid[i]
-        for i in range(7, 13) :
-            cpuSum += self.grid[i]
-        if cpuSum == 0 :
-            self.grid[6] += plrSum
-            for i in range(6) :
-                self.grid[i] = 0
-            self.gameEnded = 1
-        elif plrSum == 0:
-            self.grid[13] += cpuSum
-            for i in range(7, 13) :
-                self.grid[i] = 0
-            self.gameEnded = 2
 
     def cpuMoveMinMax(self):
         while self.currentTurn != 0:
@@ -198,3 +180,24 @@ class Mancala() :
                 state[opposite_pit] = 0
 
         return state
+    
+    def checkEmpty(self):
+        cpuSum = 0
+        plrSum = 0
+        for i in range(6) :
+            plrSum += self.grid[i]
+        for i in range(7, 13) :
+            cpuSum += self.grid[i]
+        if cpuSum == 0 :
+            self.grid[6] += plrSum
+            for i in range(6) :
+                self.grid[i] = 0
+            self.gameEnded = 1
+        elif plrSum == 0:
+            self.grid[13] += cpuSum
+            for i in range(7, 13) :
+                self.grid[i] = 0
+            self.gameEnded = 2
+        if self.grid[6] == self.grid[13]:
+            self.gameEnded = 3
+        
