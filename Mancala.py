@@ -198,6 +198,6 @@ class Mancala() :
             for i in range(7, 13) :
                 self.grid[i] = 0
             self.gameEnded = 2
-        if self.grid[6] == self.grid[13]:
+        if self.grid[6] == self.grid[13] and self.grid == 24:
             self.gameEnded = 3
         
