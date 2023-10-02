@@ -29,6 +29,9 @@ MY_POINT_TEXT_WIDTH = POINT_PIT_WIDTH[0] - 70
 POINT_COLOR = pygame.Color(183, 118, 59)
 POINT_SIZE = 30
 
+pygame.mixer.music.load("sound/game_music.mp3")
+pygame.mixer.music.play(-1)
+
 hit_sound = pygame.mixer.Sound("sound/hitsound.wav")
 btn_sound = pygame.mixer.Sound("sound/buttonsound.wav")
 
