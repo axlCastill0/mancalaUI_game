@@ -192,13 +192,15 @@ class Mancala() :
             self.grid[6] += plrSum
             for i in range(6) :
                 self.grid[i] = 0
-            self.gameEnded = 1
-            return
         elif plrSum == 0:
             self.grid[13] += cpuSum
             for i in range(7, 13) :
                 self.grid[i] = 0
-            self.gameEnded = 2
-        if self.grid[6] == self.grid[13] and self.grid == 24:
-            self.gameEnded = 3
+        if cpuSum == 0 or plrSum == 0:
+            if self.grid[6] > self.grid[13]:
+                self.gameEnded = 1
+            elif self.grid[13] > self.grid[6]:
+                self.gameEnded = 2
+            elif self.grid[6] == self.grid[13] and self.grid == 24:
+                self.gameEnded = 3
         
