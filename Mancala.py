@@ -122,8 +122,6 @@ class Mancala() :
             _, best_move = self.minimax(self.grid, self.currentTurn, depth=3)
         
             best_move = min(max(best_move, 7), 12)
-
-            print(best_move)
         
             self.grid = self.performMove(self.grid, best_move)
             self.currentTurn = 1 - self.currentTurn
