@@ -303,7 +303,6 @@ def main_menu() :
         
         if menunewgamebtn.action() == True:
             btn_sound.play()
-            mancala.gameEnded = 0
             mancala.newGrid()
             game()
             run = False
@@ -431,7 +430,6 @@ def pause_menu() :
         if newgamebtn.action() == True:
             btn_sound.play()
             mancala.newGrid()
-            mancala.gameEnded = 0
             run = False
         if returnbtn.action() == True:
             btn_sound.play()
@@ -469,8 +467,8 @@ def game():
         if pit0.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
-                mancala.playerMove(0)
                 hit_sound.play()
+                mancala.playerMove(0)
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -478,8 +476,8 @@ def game():
         if pit1.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
-                mancala.playerMove(1)
                 hit_sound.play()
+                mancala.playerMove(1)
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -487,8 +485,8 @@ def game():
         if pit2.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
-                mancala.playerMove(2)
                 hit_sound.play()
+                mancala.playerMove(2)
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -496,8 +494,8 @@ def game():
         if pit3.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
-                mancala.playerMove(3)
                 hit_sound.play()
+                mancala.playerMove(3)
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -505,8 +503,8 @@ def game():
         if pit4.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
-                mancala.playerMove(4)
                 hit_sound.play()
+                mancala.playerMove(4)
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -514,8 +512,8 @@ def game():
         if pit5.action() == True :
             if (not disabled) :
                 button_press_time = pygame.time.get_ticks()
-                mancala.playerMove(5)
                 hit_sound.play()
+                mancala.playerMove(5)
                 if mancala.currentTurn == 0 :
                     pass
                 else :
@@ -531,8 +529,8 @@ def game():
         if mancala.gameEnded != 0:
             if gamenewgamebtn.action() == True :
                 btn_sound.play()
+                mancala.gameEnded = 1
                 mancala.newGrid()
-                mancala.gameEnded = 0
 
         if mancala.gameEnded == 0:
             mancala.checkEmpty()
@@ -552,7 +550,7 @@ def game():
             screen.blit(text, text_rect)
             gamenewgamebtn.draw(screen)
 
-        if current_time - button_press_time > 1200:
+        if current_time - button_press_time > 1200 and mancala.gameEnded == 0:
             if mancala.gameEnded == 0:
                 if mancala.difficulty == 0:
                     mancala.cpuMove()
