@@ -24,8 +24,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 School project that had to be done with pygame. Took about a month to complete and got a 100% for this project.
 
 
