@@ -34,7 +34,7 @@ School project that had to be done with pygame. Took about a month to complete a
 <!-- CONTACT -->
 ## Contact
 
-Axl Emiliano Castillo Blasco - axl.castilloblasco@gmail.com
+Axl Castillo - axl.castilloblasco@gmail.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -42,4 +42,4 @@ Axl Emiliano Castillo Blasco - axl.castilloblasco@gmail.com
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/axl-emiliano-castillo-blasco-a4bb3a1ab/
+[linkedin-url]: https://www.linkedin.com/in/axlcas/
